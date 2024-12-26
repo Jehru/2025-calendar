@@ -7,3 +7,5 @@ To add this extension go to [chrome://extensions/](chrome://extensions/) and tog
 Select "Load unpacked. 
 
 Upload the folder.
+
+![](screenshot.png)
