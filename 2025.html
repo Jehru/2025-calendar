@@ -62,13 +62,16 @@
             font-size: 0.9em;
             color: gray;
         }
+
+        .footer b {
+            color: white;
+        }
     </style>
 </head>
 <body>
     <div class="calendar" id="calendar"></div>
     <div class="footer">
-        <span>2025</span>
-        <span id="days-left"></span>
+        <b>2025</b> <b id="days-left"></b><p>days left</p>
     </div>
     <script>
         const calendar = document.getElementById('calendar');
@@ -101,7 +104,7 @@
             // Update days left and highlight previous dots on hover
             dot.addEventListener('mouseenter', () => {
                 const daysLeft = totalDays - i; // Adjusted days left calculation
-                daysLeftSpan.textContent = `${daysLeft} days left`;
+                daysLeftSpan.textContent = `${daysLeft}`;
 
                 // Highlight all previous dots
                 const allDots = document.querySelectorAll('.dot');
@@ -123,7 +126,7 @@
 
                 // Reset days left to default
                 const defaultDaysLeft = totalDays - Math.floor((currentDate - firstDayOfYear) / (1000 * 60 * 60 * 24));
-                daysLeftSpan.textContent = `${defaultDaysLeft} days left`;
+                daysLeftSpan.textContent = `${defaultDaysLeft}`;
             });
 
             calendar.appendChild(dot);
@@ -131,7 +134,7 @@
 
         // Set initial days left
         const initialDaysLeft = totalDays - Math.floor((currentDate - firstDayOfYear) / (1000 * 60 * 60 * 24));
-        daysLeftSpan.textContent = `${initialDaysLeft} days left`;
+        daysLeftSpan.textContent = `${initialDaysLeft}`;
     </script>
 </body>
 </html>
