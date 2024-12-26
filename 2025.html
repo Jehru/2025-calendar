@@ -17,12 +17,22 @@
             flex-direction: column;
         }
 
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 90vw;
+        }
+
         .calendar {
             display: grid;
-            grid-template-columns: repeat(25, 15px); /* 25 items per row */
-            grid-gap: 24px; /* Increased spacing between dots */
+            grid-template-columns: repeat(auto-fit, minmax(10px, 1fr)); /* Responsive columns */
+            grid-gap: 25px; /* 25px gap between dots */
             justify-content: center;
             align-content: center;
+            width: 100%;
+            max-width: calc(25 * 35px); /* Maximum width for 25 dots per row with 25px gap */
         }
 
         .dot {
@@ -58,24 +68,55 @@
         }
 
         .footer {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-width: calc(25 * 35px); /* Maximum width for 25 dots per row with 25px gap */
             margin-top: 20px;
-            font-size: 0.9em;
-            color: gray;
+            font-size: 1em;
         }
 
-        .footer b {
-            color: white;
+        .footer .year {
+            text-align: left;
+        }
+
+        .footer .days-left {
+            text-align: right;
+        }
+
+        #days-left-para {
+            font-weight: lighter;
+            color: #4d4d4d;
+        }
+
+        @media (max-width: 600px) {
+            .calendar {
+                grid-template-columns: repeat(auto-fit, minmax(8px, 1fr)); /* Smaller dots on small screens */
+                grid-gap: 15px; /* Adjusted spacing for small screens */
+            }
+
+            .dot {
+                width: 8px;
+                height: 8px;
+            }
+
+            .footer {
+                font-size: 0.8em; /* Smaller text on small screens */
+            }
         }
     </style>
 </head>
 <body>
-    <div class="calendar" id="calendar"></div>
-    <div class="footer">
-        <b>2025</b> <b id="days-left"></b><p>days left</p>
+    <div class="container">
+        <div class="calendar" id="calendar"></div>
+        <div class="footer">
+            <div class="year">2025</div>
+            <div class="days-left"><b id="daysLeftSpan"></b> <span id="days-left-para">days left</span></div>
+        </div>
     </div>
     <script>
         const calendar = document.getElementById('calendar');
-        const daysLeftSpan = document.getElementById('days-left');
+        const daysLeftSpan = document.getElementById('daysLeftSpan');
         const totalDays = 365; // Fixed number of days in 2025
         const firstDayOfYear = new Date(2025, 0, 1); // January 1, 2025
         const lastDayOfYear = new Date(2025, 11, 31); // December 31, 2025
