@@ -1,5 +1,9 @@
-To add this extension go to chrome://extensions/ and toggle on developer mode. 
+## How to install
 
-Select "Load unpacked" 
+Unzip the folder. 
 
-Upload the folder
+To add this extension go to [chrome://extensions/](chrome://extensions/) and toggle on the developer mode. 
+
+Select "Load unpacked. 
+
+Upload the folder.
