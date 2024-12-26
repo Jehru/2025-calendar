@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2025 Calendar</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
+
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(25, 15px); /* 25 items per row */
+            grid-gap: 24px; /* Increased spacing between dots */
+            justify-content: center;
+            align-content: center;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            background-color: #333;
+            border-radius: 50%;
+            position: relative;
+            transition: background-color 0.3s ease;
+        }
+
+        .dot.current {
+            background-color: white;
+        }
+
+        .dot:hover {
+            background-color: white;
+            cursor: pointer;
+        }
+
+        .dot:hover::after {
+            content: attr(data-date);
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: white;
+            color: black;
+            padding: 2px 5px;
+            border-radius: 5px;
+            font-size: 0.8em;
+            white-space: nowrap;
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+    <div class="calendar" id="calendar"></div>
+    <div class="footer">
+        <span>2025</span>
+        <span id="days-left"></span>
+    </div>
+    <script>
+        const calendar = document.getElementById('calendar');
+        const daysLeftSpan = document.getElementById('days-left');
+        const totalDays = 365; // Fixed number of days in 2025
+        const firstDayOfYear = new Date(2025, 0, 1); // January 1, 2025
+        const lastDayOfYear = new Date(2025, 11, 31); // December 31, 2025
+        const currentDate = new Date(); // Current date for comparison
+
+        // Generate dots for each day in 2025
+        for (let i = 0; i < totalDays; i++) {
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+
+            // Calculate the date for this dot
+            const thisDay = new Date(firstDayOfYear.getTime() + i * 24 * 60 * 60 * 1000);
+            const formattedDate = thisDay.toLocaleDateString('en-GB', {
+                weekday: 'long',
+                day: '2-digit',
+                month: '2-digit',
+            });
+
+            dot.setAttribute('data-date', formattedDate); // Tooltip for the date
+
+            // Highlight the current day dynamically
+            if (thisDay.toDateString() === currentDate.toDateString()) {
+                dot.classList.add('current');
+            }
+
+            // Update days left and highlight previous dots on hover
+            dot.addEventListener('mouseenter', () => {
+                const daysLeft = totalDays - i; // Adjusted days left calculation
+                daysLeftSpan.textContent = `${daysLeft} days left`;
+
+                // Highlight all previous dots
+                const allDots = document.querySelectorAll('.dot');
+                allDots.forEach((d, index) => {
+                    if (index <= i) {
+                        d.style.backgroundColor = 'white';
+                    }
+                });
+            });
+
+            // Reset dots and days left on mouse leave
+            dot.addEventListener('mouseleave', () => {
+                const allDots = document.querySelectorAll('.dot');
+                allDots.forEach(d => {
+                    if (!d.classList.contains('current')) {
+                        d.style.backgroundColor = '#333';
+                    }
+                });
+
+                // Reset days left to default
+                const defaultDaysLeft = totalDays - Math.floor((currentDate - firstDayOfYear) / (1000 * 60 * 60 * 24));
+                daysLeftSpan.textContent = `${defaultDaysLeft} days left`;
+            });
+
+            calendar.appendChild(dot);
+        }
+
+        // Set initial days left
+        const initialDaysLeft = totalDays - Math.floor((currentDate - firstDayOfYear) / (1000 * 60 * 60 * 24));
+        daysLeftSpan.textContent = `${initialDaysLeft} days left`;
+    </script>
+</body>
+</html>
