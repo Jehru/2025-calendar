@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "2025 Calendar New Tab",
+  "version": "1.0",
+  "description": "Displays a 2025 calendar whenever you open a new tab.",
+  "chrome_url_overrides": {
+    "newtab": "newtab.html"
+  },
+  "permissions": [
+    "storage"
+  ],
+  "icons": {
+    "128": "icon.png"
+  }
+}
