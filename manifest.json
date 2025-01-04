@@ -4,7 +4,7 @@
   "version": "1.0",
   "description": "Displays a 2025 calendar whenever you open a new tab.",
   "chrome_url_overrides": {
-    "newtab": "newtab.html"
+    "newtab": "index.html"
   },
   "permissions": [
     "storage"
